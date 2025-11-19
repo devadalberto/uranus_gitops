@@ -1,0 +1,8 @@
+keys:
+  - &uranus_age age19dr2laukg526wv798hn8phwkhch0nwxszj57lrrncww2lghqeptsap89fl
+
+creation_rules:
+  - path_regex: infra/secrets/uranus/.*\.ya?ml
+    key_groups:
+      - age:
+          - *uranus_age
