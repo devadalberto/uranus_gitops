@@ -1,0 +1,8 @@
+NAMESPACE      NAME                      TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                  AGE   SELECTOR
+default        kubernetes                ClusterIP   10.96.0.1        <none>        443/TCP                  23h   <none>
+games          minecraft-atm10           NodePort    10.101.67.82     <none>        25565:30065/TCP          16h   app=minecraft-atm10
+homelab-apps   nextcloud                 ClusterIP   10.109.242.250   <none>        8080/TCP                 22h   app=nextcloud
+homelab-apps   onlyoffice-docs           ClusterIP   10.102.216.109   <none>        80/TCP                   22h   app=onlyoffice-docs
+kube-system    kube-dns                  ClusterIP   10.96.0.10       <none>        53/UDP,53/TCP,9153/TCP   23h   k8s-app=kube-dns
+uranus-db      uranus-db-postgresql      ClusterIP   10.107.168.98    <none>        5432/TCP                 19h   app=uranus-postgres
+uranus-db      uranus-db-postgresql-hl   ClusterIP   None             <none>        5432/TCP                 22h   app.kubernetes.io/component=primary,app.kubernetes.io/instance=uranus-db,app.kubernetes.io/name=postgresql

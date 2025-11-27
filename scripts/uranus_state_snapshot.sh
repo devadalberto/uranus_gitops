@@ -32,9 +32,11 @@ kubectl config use-context minikube >/dev/null 2>&1 || true
 kubectl get nodes -o wide          > "docs/k8s-nodes-${DATE_TAG}.txt"      || true
 kubectl get pods -A -o wide        > "docs/k8s-pods-${DATE_TAG}.txt"       || true
 kubectl get svc  -A -o wide        > "docs/k8s-svcs-${DATE_TAG}.txt"       || true
+
 kubectl -n homelab-apps get deploy nextcloud onlyoffice-docs -o yaml \
   > "docs/k8s-nextcloud-onlyoffice-${DATE_TAG}.yaml" || true
-kubectl -n games get deploy,minecraft-atm10,svc/minecraft-atm10 -o yaml \
+
+kubectl -n games get deploy/minecraft-atm10 svc/minecraft-atm10 -o yaml \
   > "docs/k8s-minecraft-atm10-${DATE_TAG}.yaml" || true
 
 echo "[*] Exporting env var template from ~/.bashrc..."

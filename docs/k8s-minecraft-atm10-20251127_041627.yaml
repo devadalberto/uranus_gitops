@@ -1,0 +1,148 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "3"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"minecraft-atm10","namespace":"games"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"minecraft-atm10"}},"template":{"metadata":{"labels":{"app":"minecraft-atm10"}},"spec":{"containers":[{"env":[{"name":"EULA","value":"TRUE"},{"name":"MEMORY","value":"8G"},{"name":"TYPE","value":"AUTO_CURSEFORGE"},{"name":"CF_SERVER_MOD","value":"7223056"},{"name":"DIFFICULTY","value":"normal"},{"name":"MODE","value":"survival"},{"name":"MAX_PLAYERS","value":"8"},{"name":"MOTD","value":"ATM10@uranus"},{"name":"VIEW_DISTANCE","value":"10"},{"name":"TZ","value":"America/Los_Angeles"},{"name":"ONLINE_MODE","value":"true"},{"name":"ENABLE_RCON","value":"true"},{"name":"RCON_PASSWORD","value":"ChangeMeNow123!"},{"name":"RCON_PORT","value":"25575"},{"name":"ENABLE_WHITELIST","value":"true"},{"name":"WHITELIST","value":"javalace,virlochov"},{"name":"OPS","value":"javalace"}],"image":"itzg/minecraft-server:latest","imagePullPolicy":"IfNotPresent","name":"mc","ports":[{"containerPort":25565,"name":"mc","protocol":"TCP"}],"volumeMounts":[{"mountPath":"/data","name":"world-data"}]}],"dnsPolicy":"ClusterFirstWithHostNet","hostNetwork":true,"volumes":[{"name":"world-data","persistentVolumeClaim":{"claimName":"minecraft-atm10-pvc"}}]}}}}
+    creationTimestamp: "2025-11-26T05:24:33Z"
+    generation: 3
+    name: minecraft-atm10
+    namespace: games
+    resourceVersion: "49052"
+    uid: a498ab0d-18b2-45d3-8c88-1fd536dae79f
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: minecraft-atm10
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: minecraft-atm10
+      spec:
+        containers:
+        - env:
+          - name: EULA
+            value: "TRUE"
+          - name: MEMORY
+            value: 8G
+          - name: TYPE
+            value: AUTO_CURSEFORGE
+          - name: DIFFICULTY
+            value: normal
+          - name: MODE
+            value: survival
+          - name: MAX_PLAYERS
+            value: "8"
+          - name: MOTD
+            value: ATM10@uranus
+          - name: VIEW_DISTANCE
+            value: "10"
+          - name: TZ
+            value: America/Los_Angeles
+          - name: ONLINE_MODE
+            value: "true"
+          - name: ENABLE_RCON
+            value: "true"
+          - name: RCON_PASSWORD
+            value: ChangeMeNow123!
+          - name: RCON_PORT
+            value: "25575"
+          - name: ENABLE_WHITELIST
+            value: "true"
+          - name: WHITELIST
+            value: javalace,virlochov
+          - name: OPS
+            value: javalace
+          - name: CF_PAGE_URL
+            value: https://www.curseforge.com/minecraft/modpacks/all-the-mods-10
+          - name: CF_API_KEY
+            value: $2a$10$3/2.5/iFQH7G/ogyJc7P2epV4c2c.hgV5jftxjB5kJo.JvFr3R5t.
+          image: itzg/minecraft-server:latest
+          imagePullPolicy: IfNotPresent
+          name: mc
+          ports:
+          - containerPort: 25565
+            name: mc
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /data
+            name: world-data
+        dnsPolicy: ClusterFirstWithHostNet
+        hostNetwork: true
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: world-data
+          persistentVolumeClaim:
+            claimName: minecraft-atm10-pvc
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-11-26T21:10:16Z"
+      lastUpdateTime: "2025-11-26T21:10:16Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2025-11-26T21:01:01Z"
+      lastUpdateTime: "2025-11-26T21:10:16Z"
+      message: ReplicaSet "minecraft-atm10-57fbcd9996" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 3
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"minecraft-atm10","namespace":"games"},"spec":{"ports":[{"name":"mc","nodePort":30065,"port":25565,"targetPort":25565}],"selector":{"app":"minecraft-atm10"},"type":"NodePort"}}
+    creationTimestamp: "2025-11-26T11:53:49Z"
+    name: minecraft-atm10
+    namespace: games
+    resourceVersion: "21837"
+    uid: fd2e8236-f92f-421d-9780-ffa5b901ed07
+  spec:
+    clusterIP: 10.101.67.82
+    clusterIPs:
+    - 10.101.67.82
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: mc
+      nodePort: 30065
+      port: 25565
+      protocol: TCP
+      targetPort: 25565
+    selector:
+      app: minecraft-atm10
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""
