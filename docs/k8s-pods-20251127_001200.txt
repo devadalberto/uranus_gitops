@@ -1,0 +1,12 @@
+NAMESPACE      NAME                               READY   STATUS    RESTARTS      AGE     IP             NODE       NOMINATED NODE   READINESS GATES
+games          minecraft-atm10-57fbcd9996-v4ktg   1/1     Running   0             3h2m    192.168.49.2   minikube   <none>           <none>
+homelab-apps   nextcloud-594c9b7cf9-mj6rt         1/1     Running   0             18h     10.244.0.5     minikube   <none>           <none>
+homelab-apps   onlyoffice-docs-7966bf7679-9226c   1/1     Running   0             3h11m   10.244.0.8     minikube   <none>           <none>
+kube-system    coredns-7db6d8ff4d-x75g9           1/1     Running   0             19h     10.244.0.2     minikube   <none>           <none>
+kube-system    etcd-minikube                      1/1     Running   0             19h     192.168.49.2   minikube   <none>           <none>
+kube-system    kube-apiserver-minikube            1/1     Running   0             19h     192.168.49.2   minikube   <none>           <none>
+kube-system    kube-controller-manager-minikube   1/1     Running   0             19h     192.168.49.2   minikube   <none>           <none>
+kube-system    kube-proxy-wlrjc                   1/1     Running   0             19h     192.168.49.2   minikube   <none>           <none>
+kube-system    kube-scheduler-minikube            1/1     Running   0             19h     192.168.49.2   minikube   <none>           <none>
+kube-system    storage-provisioner                1/1     Running   1 (19h ago)   19h     192.168.49.2   minikube   <none>           <none>
+uranus-db      uranus-postgres-0                  1/1     Running   0             15h     10.244.0.6     minikube   <none>           <none>

@@ -1,0 +1,14 @@
+[Unit]
+Description=Port-forward Minecraft ATM10 from Minikube to host
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+User=saitama
+Environment=KUBECONFIG=/home/saitama/.kube/config
+Restart=always
+RestartSec=5
+ExecStart=/usr/bin/env kubectl --context=minikube -n games port-forward svc/minecraft-atm10 25565:25565 --address 0.0.0.0
+
+[Install]
+WantedBy=multi-user.target

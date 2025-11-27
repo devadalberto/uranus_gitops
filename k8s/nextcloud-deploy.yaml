@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud
+  namespace: homelab-apps
+  labels:
+    app: nextcloud
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: nextcloud
+  template:
+    metadata:
+      labels:
+        app: nextcloud
+    spec:
+      containers:
+        - name: nextcloud
+          image: nextcloud:32-apache
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              name: http
+          env:
+            - name: NEXTCLOUD_TRUSTED_DOMAINS
+              value: "${NC_DOMAIN} ${NC_IP}"
+            - name: NEXTCLOUD_OVERWRITEHOST
+              value: "${NC_DOMAIN}:${NC_PORT}"
+            - name: NEXTCLOUD_OVERWRITEPROTOCOL
+              value: "http"
+            - name: NEXTCLOUD_DATA_DIR
+              value: "/var/www/html/data"
+
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud-db-credentials
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud-db-credentials
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud-db-credentials
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_HOST
+              value: "${DB_HOST}"
+
+          volumeMounts:
+            - name: nextcloud-data
+              mountPath: /var/www/html
+
+          livenessProbe:
+            httpGet:
+              path: /status.php
+              port: http
+            initialDelaySeconds: 60
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /status.php
+              port: http
+            initialDelaySeconds: 60
+            periodSeconds: 20
+
+      volumes:
+        - name: nextcloud-data
+          persistentVolumeClaim:
+            claimName: nextcloud-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextcloud
+  namespace: homelab-apps
+spec:
+  selector:
+    app: nextcloud
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 80

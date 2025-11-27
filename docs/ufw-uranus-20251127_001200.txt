@@ -1,0 +1,30 @@
+Status: active
+
+     To                         Action      From
+     --                         ------      ----
+[ 1] 22/tcp                     ALLOW IN    192.168.88.0/24           
+[ 2] 80/tcp                     ALLOW IN    Anywhere                  
+[ 3] 443/tcp                    ALLOW IN    Anywhere                  
+[ 4] 25565/tcp                  ALLOW IN    Anywhere                  
+[ 5] 5900/tcp                   ALLOW IN    192.168.88.0/24           
+[ 6] 30080/tcp                  ALLOW IN    Anywhere                  
+[ 7] 30443/tcp                  ALLOW IN    Anywhere                  
+[ 8] Anywhere on eno1           ALLOW FWD   192.168.39.0/24 on virbr1 
+[ 9] 192.168.39.0/24 on virbr1  ALLOW FWD   Anywhere on eno1          
+[10] 53/udp                     ALLOW IN    192.168.88.0/24           
+[11] 53/tcp                     ALLOW IN    192.168.88.0/24           
+[12] Anywhere on eno1           ALLOW FWD   Anywhere on br-13f076127654
+[13] Anywhere on br-13f076127654 ALLOW FWD   Anywhere on eno1          
+[14] 8080/tcp                   ALLOW IN    192.168.88.0/24           
+[15] 32000/tcp                  ALLOW IN    192.168.88.0/24           
+[16] 3000/tcp                   ALLOW IN    192.168.88.0/24           
+[17] 9090/tcp                   ALLOW IN    192.168.88.0/24           
+[18] 30065/tcp                  ALLOW IN    192.168.88.0/24           
+[19] 25575/tcp                  ALLOW IN    192.168.88.0/24           
+[20] 25565/tcp                  ALLOW IN    192.168.88.0/24           
+[21] 80/tcp (v6)                ALLOW IN    Anywhere (v6)             
+[22] 443/tcp (v6)               ALLOW IN    Anywhere (v6)             
+[23] 25565/tcp (v6)             ALLOW IN    Anywhere (v6)             
+[24] 30080/tcp (v6)             ALLOW IN    Anywhere (v6)             
+[25] 30443/tcp (v6)             ALLOW IN    Anywhere (v6)             
+

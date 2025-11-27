@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minecraft-atm10
+  namespace: games
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minecraft-atm10
+  template:
+    metadata:
+      labels:
+        app: minecraft-atm10
+    spec:
+      # Run in the host network so clients just hit 192.168.88.12:25565
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+      - name: mc
+        image: itzg/minecraft-server:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: EULA
+          value: "TRUE"
+        - name: MEMORY
+          value: "8G"
+        - name: TYPE
+          value: "AUTO_CURSEFORGE"
+        - name: CF_SERVER_MOD
+          value: "7223056"
+
+        - name: DIFFICULTY
+          value: "normal"
+        - name: MODE
+          value: "survival"
+        - name: MAX_PLAYERS
+          value: "8"
+        - name: MOTD
+          value: "ATM10@uranus"
+        - name: VIEW_DISTANCE
+          value: "10"
+        - name: TZ
+          value: "America/Los_Angeles"
+        - name: ONLINE_MODE
+          value: "true"
+
+        - name: ENABLE_RCON
+          value: "true"
+        - name: RCON_PASSWORD
+          value: "ChangeMeNow123!"
+        - name: RCON_PORT
+          value: "25575"
+
+        - name: ENABLE_WHITELIST
+          value: "true"
+        - name: WHITELIST
+          value: "javalace,virlochov"
+        - name: OPS
+          value: "javalace"
+
+        ports:
+        - containerPort: 25565
+          name: mc
+          protocol: TCP
+        volumeMounts:
+        - name: world-data
+          mountPath: /data
+      volumes:
+      - name: world-data
+        persistentVolumeClaim:
+          claimName: minecraft-atm10-pvc

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nextcloud-pvc
+  namespace: homelab-apps
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: uranus-nextcloud
+  resources:
+    requests:
+      storage: 50Gi

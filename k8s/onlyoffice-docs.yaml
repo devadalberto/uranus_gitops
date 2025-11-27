@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: onlyoffice-docs
+  namespace: homelab-apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: onlyoffice-docs
+  template:
+    metadata:
+      labels:
+        app: onlyoffice-docs
+    spec:
+      containers:
+        - name: onlyoffice-docs
+          image: onlyoffice/documentserver:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          env:
+            - name: JWT_ENABLED
+              value: "true"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: onlyoffice-jwt-secret
+                  key: jwt-secret
+          # You can tweak these later if needed
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: onlyoffice-docs
+  namespace: homelab-apps
+spec:
+  selector:
+    app: onlyoffice-docs
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+
